@@ -16,7 +16,7 @@ pub fn read_from_file_to_string(rel_path: String) -> Result<String, Box<dyn Erro
 
     let input_path = format!("{}/src/days/{}", cur_dir, rel_path);
 
-    let res = fs::read_to_string(input_path)?;
+    let res = fs::read_to_string(input_path)?.trim().to_string();
 
     Ok(res)
 }

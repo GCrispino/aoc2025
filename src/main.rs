@@ -27,6 +27,8 @@ fn load_challenge(challenge_id: String) -> Result<(), Box<dyn Error>> {
         // day 1
         "1a" => Ok(days::day1::a::solve()?),
         "1b" => Ok(days::day1::b::solve()?),
+        // day 2
+        "2a" => Ok(days::day2::a::solve()?),
         challenge_id_str => {
             Err(format!("Challenge {} invalid or not implemented!", challenge_id_str).into())
         }
