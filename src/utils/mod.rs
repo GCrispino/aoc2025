@@ -28,7 +28,7 @@ pub fn read_from_file_to_number_tuples(
     let spl = file_contents.split("\n");
     let n = spl.clone().count();
     let parsed: Result<Vec<(i32, i32)>, Box<dyn Error>> = spl
-        .take(n - 1)
+        .take(n)
         .map(|s| {
             let v: Vec<&str> = s.split_whitespace().collect();
 
@@ -47,7 +47,7 @@ pub fn read_from_file_to_string_list(rel_path: String) -> Result<Vec<String>, Bo
     let spl = file_contents.split("\n");
     let n = spl.clone().count();
     let parsed: Vec<String> = spl
-        .take(n - 1)
+        .take(n)
         .map(|s| {
             let v: String = s.split_whitespace().map(|x| x.to_string()).collect();
             v
