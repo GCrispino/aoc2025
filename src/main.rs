@@ -5,7 +5,7 @@ mod days;
 mod utils;
 
 #[derive(Parser)]
-#[command(subcommand_required=true)]
+#[command(subcommand_required = true)]
 #[command(version)]
 struct Cli {
     #[command(subcommand)]
@@ -35,6 +35,8 @@ fn load_challenge(challenge_id: String) -> Result<(), Box<dyn Error>> {
         // day 4
         "4a" => Ok(days::day4::a::solve()?),
         "4b" => Ok(days::day4::b::solve()?),
+        // day 5
+        "5a" => Ok(days::day5::a::solve()?),
         challenge_id_str => {
             Err(format!("Challenge {} invalid or not implemented!", challenge_id_str).into())
         }
@@ -43,10 +45,8 @@ fn load_challenge(challenge_id: String) -> Result<(), Box<dyn Error>> {
 
 fn main() -> Result<(), Box<dyn Error>> {
     let cli = Cli::parse();
-    
+
     match cli.command {
-        Commands::Run { challenge_id } => {
-            load_challenge(challenge_id)
-        }
+        Commands::Run { challenge_id } => load_challenge(challenge_id),
     }
 }
