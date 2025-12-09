@@ -1,19 +1,11 @@
 use std::error::Error;
 
-use crate::utils;
+use crate::{days::day5::common, utils};
 
-fn get_range(s: &String) -> (u64, u64) {
-    let mut spl = s.split("-");
-    let start = spl.next().unwrap().parse::<u64>().unwrap();
-    let end = spl.next().unwrap().parse::<u64>().unwrap();
-
-    (start, end)
-}
-
-fn is_ingredient_fresh(ranges: &[(u64, u64)], ingredient: u64) -> bool {
+fn is_ingredient_fresh(ranges: &[common::Range], ingredient: u64) -> bool {
     ranges
         .iter()
-        .any(|(start, end)| ingredient >= *start && ingredient <= *end)
+        .any(|r| ingredient >= r.start && ingredient <= r.end)
 }
 
 pub fn solve() -> Result<(), Box<dyn Error>> {
@@ -21,7 +13,7 @@ pub fn solve() -> Result<(), Box<dyn Error>> {
 
     // println!("{:?}", input);
     let mut spl = input.split(|s| s == "");
-    let ranges: Vec<(u64, u64)> = spl.next().unwrap().iter().map(get_range).collect();
+    let ranges: Vec<common::Range> = spl.next().unwrap().iter().map(common::get_range).collect();
     let ingredient_ids: Vec<u64> = spl
         .next()
         .unwrap()
