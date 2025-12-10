@@ -1,9 +1,10 @@
 use std::error::Error;
+use std::fmt::Display;
 use std::fs;
 
 pub mod types;
 
-pub fn read_from_file_to_string(rel_path: String) -> Result<String, Box<dyn Error>> {
+fn get_input_path(rel_path: String) -> Result<String, Box<dyn Error>> {
     let cur_dir_blah = std::env::current_dir()?;
     let cur_dir_opt = cur_dir_blah.to_str();
 
@@ -14,9 +15,22 @@ pub fn read_from_file_to_string(rel_path: String) -> Result<String, Box<dyn Erro
 
     let cur_dir = cur_dir_res?;
 
-    let input_path = format!("{}/src/days/{}", cur_dir, rel_path);
+    Ok(format!("{}/src/days/{}", cur_dir, rel_path))
+}
+
+pub fn read_from_file_to_string(rel_path: String) -> Result<String, Box<dyn Error>> {
+
+    let input_path = get_input_path(rel_path)?;
 
     let res = fs::read_to_string(input_path)?.trim().to_string();
+
+    Ok(res)
+}
+
+pub fn read_from_file_to_string_no_trim(rel_path: String) -> Result<String, Box<dyn Error>> {
+    let input_path = get_input_path(rel_path)?;
+
+    let res = fs::read_to_string(input_path)?.to_string();
 
     Ok(res)
 }
@@ -74,4 +88,37 @@ pub fn read_from_file_to_number_matrix(rel_path: String) -> Result<Vec<Vec<i32>>
         .collect();
 
     parsed
+}
+
+pub fn transpose_matrix<T: Copy>(input: &Vec<Vec<T>>) -> Vec<Vec<T>> {
+    let mut result: Vec<Vec<T>> = vec!();
+
+    let n_rows = input.len();
+    let n_cols = input[0].len();
+
+    for j in 0..n_cols {
+        let mut column: Vec<T> = vec!();
+
+        for i in 0..n_rows {
+            column.push(input[i][j]);
+        }
+
+        result.push(column);
+    }
+
+    result
+}
+
+pub fn print_matrix<T: Display>(input: &Vec<Vec<T>>) {
+    let n_rows = input.len();
+    let n_cols = input[0].len();
+
+    for i in 0..n_rows {
+        for j in 0..n_cols {
+            print!("{:}", input[i][j]);
+        }
+
+        println!("");
+    }
+
 }
