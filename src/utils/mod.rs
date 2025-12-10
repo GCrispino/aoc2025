@@ -19,7 +19,6 @@ fn get_input_path(rel_path: String) -> Result<String, Box<dyn Error>> {
 }
 
 pub fn read_from_file_to_string(rel_path: String) -> Result<String, Box<dyn Error>> {
-
     let input_path = get_input_path(rel_path)?;
 
     let res = fs::read_to_string(input_path)?.trim().to_string();
@@ -91,13 +90,13 @@ pub fn read_from_file_to_number_matrix(rel_path: String) -> Result<Vec<Vec<i32>>
 }
 
 pub fn transpose_matrix<T: Copy>(input: &Vec<Vec<T>>) -> Vec<Vec<T>> {
-    let mut result: Vec<Vec<T>> = vec!();
+    let mut result: Vec<Vec<T>> = vec![];
 
     let n_rows = input.len();
     let n_cols = input[0].len();
 
     for j in 0..n_cols {
-        let mut column: Vec<T> = vec!();
+        let mut column: Vec<T> = vec![];
 
         for i in 0..n_rows {
             column.push(input[i][j]);
@@ -107,6 +106,12 @@ pub fn transpose_matrix<T: Copy>(input: &Vec<Vec<T>>) -> Vec<Vec<T>> {
     }
 
     result
+}
+
+pub fn print_iter<T: Display>(input: &[T]) {
+    for item in input {
+        println!("{:}", item);
+    }
 }
 
 pub fn print_matrix<T: Display>(input: &Vec<Vec<T>>) {
@@ -120,5 +125,4 @@ pub fn print_matrix<T: Display>(input: &Vec<Vec<T>>) {
 
         println!("");
     }
-
 }
