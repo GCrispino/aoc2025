@@ -36,17 +36,17 @@ pub fn read_from_file_to_string_no_trim(rel_path: String) -> Result<String, Box<
 
 pub fn read_from_file_to_number_tuples(
     rel_path: String,
-) -> Result<Vec<(i32, i32)>, Box<dyn Error>> {
+) -> Result<Vec<(i64, i64)>, Box<dyn Error>> {
     let file_contents = read_from_file_to_string(rel_path)?;
     let spl = file_contents.split("\n");
     let n = spl.clone().count();
-    let parsed: Result<Vec<(i32, i32)>, Box<dyn Error>> = spl
+    let parsed: Result<Vec<(i64, i64)>, Box<dyn Error>> = spl
         .take(n)
         .map(|s| {
-            let v: Vec<&str> = s.split_whitespace().collect();
+            let v: Vec<&str> = s.split(",").collect();
 
-            let x = v[0].parse::<i32>()?;
-            let y = v[1].parse::<i32>()?;
+            let x = v[0].parse::<i64>()?;
+            let y = v[1].parse::<i64>()?;
 
             Ok((x, y))
         })
