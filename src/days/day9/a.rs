@@ -15,8 +15,8 @@ pub fn solve() -> Result<(), Box<dyn Error>> {
     // println!("{:}", fl_map);
 
     let mut max_area = 0;
-    for coord1 in &fl_map.coords {
-        for coord2 in &fl_map.coords {
+    for coord1 in &fl_map.red_coords {
+        for coord2 in &fl_map.red_coords {
             let rect = Rect::new_from_two_points(*coord1, *coord2);
 
             let rect_area = rect.area();
