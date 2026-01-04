@@ -55,6 +55,17 @@ pub fn read_from_file_to_number_tuples(
     parsed
 }
 
+pub fn read_from_file_to_string_list_no_split_whitespace(
+    rel_path: String,
+) -> Result<Vec<String>, Box<dyn Error>> {
+    let file_contents = read_from_file_to_string(rel_path)?;
+    let spl = file_contents.split("\n");
+    let n = spl.clone().count();
+    let parsed: Vec<String> = spl.take(n).map(|s| s.to_string()).collect();
+
+    Ok(parsed)
+}
+
 pub fn read_from_file_to_string_list(rel_path: String) -> Result<Vec<String>, Box<dyn Error>> {
     let file_contents = read_from_file_to_string(rel_path)?;
     let spl = file_contents.split("\n");
